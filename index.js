@@ -12,28 +12,16 @@ function getRandomString(n) {
     return randomString  
 }
 
-function replaceLetter (symbol, myLetterString){
-    let resultLetterString = ''
-    for (i=0; i < myLetterString.length; i++){
-        if (letters.indexOf(myLetterString[i]) != -1){
-            resultLetterString += symbol
-        } else {
-            resultLetterString += myLetterString[i]
-        }
-    }
-    return resultLetterString
-}
-
-function replaceDigit (symbol, myDigitString){
-    let resultDigitString = ''
+function replaceNeedSymbols (symbol, myDigitString, exceptArray){
+    let resultExceptedString = ''
     for (i=0; i < myDigitString.length; i++){
-        if (digits.indexOf(myDigitString[i]) != -1){
-            resultDigitString += symbol
+        if (exceptArray.indexOf(myDigitString[i]) != -1){
+            resultExceptedString += symbol
         } else {
-            resultDigitString += myDigitString[i]
+            resultExceptedString += myDigitString[i]
         }
     }
-    return resultDigitString
+    return resultExceptedString
 }
 
 function getQualitySybmols (isNotLetter, isNotDigit, allString) {
@@ -52,11 +40,11 @@ function main() {
     const numberSymbols = prompt('Введите число символов в строке')
     const answerRandowString = getRandomString(numberSymbols)
     console.log("Сгенерированная строка: " + answerRandowString)
-    const replaceSymbolLetter = prompt('Введите символ на которых хотите заменить буквы')
-    const stringWithoutLetter = replaceLetter(replaceSymbolLetter, answerRandowString)
+    const replaceSymbolLetter = prompt('Введите символ на который хотите заменить буквы')
+    const stringWithoutLetter = replaceNeedSymbols(replaceSymbolLetter, answerRandowString, letters)
     console.log("Строка с замененными буквами: " + stringWithoutLetter)
-    const replaceSymbolDigit = prompt('Введите символ на которых хотите заменить цифры')
-    const stringWithoutDigit = replaceDigit(replaceSymbolDigit, stringWithoutLetter)
+    const replaceSymbolDigit = prompt('Введите символ на который хотите заменить цифры')
+    const stringWithoutDigit = replaceNeedSymbols(replaceSymbolDigit, stringWithoutLetter, digits)
     console.log("Строка с замененными цифрами: " + stringWithoutDigit)
     const qualitySybmols = getQualitySybmols(replaceSymbolLetter, replaceSymbolDigit, stringWithoutDigit)
     console.log("Количество символов " + replaceSymbolLetter + " " + qualitySybmols[0])
